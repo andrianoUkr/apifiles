@@ -1,0 +1,73 @@
+API REST SERVER
+
+ -- GET -- 
+Get contents of folder or file(default = '/')
+api/main/index/files
+
+keys:
+	name - name of folder or file
+	
+ -- POST -- 
+Update content of file or name of folder
+api/main/index/files
+
+keys:
+	name - name of folder or file
+	content - new content for current file
+	newName - new name for folder
+
+ -- PUT --	
+Create file with content or folder
+api/main/index/files
+
+keys:
+	name - name of folder or file
+	content - content for new file
+	
+ -- DELETE --	
+Delete file with content or folder with all files
+api/main/index/files
+
+keys:
+	name - name of folder or file
+		
+Example for request on REST SERVER:
+$.ajax( { 
+	url : "/api/main/index/files.json", 
+	data : { 
+		'name' : 'new.txt', 
+		'content' : "\r\n\tpublic function getListFolders($dirname= ''"
+	},
+	type : "POST", 
+	dataType : "json", 
+	async : false, 
+	success : function (data) { 
+		console.log(data); 
+	}, 
+	error : function () { 
+		alert("Failed"); 
+	} 
+});
+
+AUTH ON REST SERVER		
+
+authorization:
+	1.REST request from client
+
+	var auth = $.base64.encode('admin' + ':' + 'admin');
+	$.ajax({
+		beforeSend : function (data) {
+			data.setRequestHeader('Auth', auth);
+		},				
+		url: '/api/main/index/Auth',
+		type: 'POST',
+		cache: false,
+		success: function(){
+			console.log('failed.');
+		}
+	});
+	
+	2. To get http basic authentication need send GET data in folder API
+	$_GET['auth'] = 'login'
+	
+	
